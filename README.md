@@ -20,6 +20,7 @@ pipenv install;
 ## Usage
 ```
 pipenv run python ./main.py <mode> <args>
+pipenv run mypy ./*.py
 ```
 
 ## Modes
