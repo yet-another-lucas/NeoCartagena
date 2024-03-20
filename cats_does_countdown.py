@@ -1,6 +1,6 @@
 import random
 
-def conundrum():
+def conundrum() -> None:
     """
     Return a conundrum in the style of "8 out 10 Cats Does Countdown"
     These conundrums follow a familiar pattern.

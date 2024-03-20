@@ -6,7 +6,7 @@ import rhyme
 import cats_does_countdown
 
 
-def solve_anagram(word):
+def solve_anagram(word: str) -> None:
     potentials = anagram.find_anagram(word)
     print(f"found {len(potentials)} anagrams")
     print(f"WORD\tSCORE")
@@ -14,24 +14,24 @@ def solve_anagram(word):
         score = anagram.scrabble_score(word)
         print(f"{word}\t{score}")
 
-def compute_distance(word1, word2):
+def compute_distance(word1: str, word2: str) -> None:
     distance = levenshtein.distance(word1, word2)
     print(f"The Levenshtein distance between '{word1}' and '{word2}' is {distance}.")
 
-def cats_conundrum():
+def cats_conundrum() -> None:
     cats_does_countdown.conundrum()
 
-def find_rhymes(word):
+def find_rhymes(word: str) -> None:
     nurhymes = rhyme.get_rhymes_for(word)
     print(f"Rhymes for {word = } are: {nurhymes}")
 
-def pig_latin(word):
+def pig_latin(word: str) -> None:
     print(f"try to translate {word}")
     # translation = pig_latin.translate(word) # why does pig_latin.translate(word) gives AttributeError?
     translation = translate(word)
     print(f"Pig latin for {word = } is: {translation}")
 
-def main():
+def main() -> None:
     available_modes = ["solve-anagram", "compute-distance", "cats-conundrum", "find-rhymes", "pig-latin"]
     if len(sys.argv) < 2:
             print(f"Usage: pipenv run python main.py <mode> <arguments>, modes are: {available_modes}")

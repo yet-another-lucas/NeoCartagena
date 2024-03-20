@@ -2,14 +2,14 @@ import itertools
 
 FILENAME="words.txt"
 
-def find_anagram(input_word):
+def find_anagram(input_word: str) -> list[str]:
     """
     Return all anagrams for the input word.
 
     """
     if len(input_word) > 6:
         print(f"words longer than 6 chars are slooooow, skipping {input_word=}")
-        return []
+        return list()
     # Generate all spelling permutations of the input word
     input_permutations = ["".join(x) for x in itertools.permutations(input_word)]
     # create an empty list to store the anagrams
@@ -17,9 +17,9 @@ def find_anagram(input_word):
     # open the file
     with open(FILENAME) as f:
         # read the file
-        words = f.read()
+        lines = f.read()
         # split the file into a list of words
-        words = words.split()
+        words = lines.split()
         # loop through the list of words
         for word in words:
             for permutation in input_permutations:
@@ -27,9 +27,9 @@ def find_anagram(input_word):
                     anagrams.append(word)
                     break
                     # print(f"{permutation} contains {word}")
-    return set(anagrams)
+    return list(set(anagrams))
 
-def scrabble_score(word):
+def scrabble_score(word: str) -> int:
     """
     Calculate the Scrabble score for a given word.
     """

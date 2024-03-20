@@ -1,5 +1,5 @@
 # a function to apply pig latin to a string
-def translate(word):
+def translate(word: str) -> str:
     # if the word starts with a vowel
     if word[0] in "aeiou":
         # add way to the end of the word

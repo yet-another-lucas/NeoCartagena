@@ -1,4 +1,4 @@
-def distance(word1, word2):
+def distance(word1: str, word2: str) -> int:
     """
     Compute the Levenshtein distance between two words.
     How many characters must be changed to another character

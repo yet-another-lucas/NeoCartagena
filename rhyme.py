@@ -3,7 +3,7 @@ import pickle
 import nltk
 from nltk.corpus import cmudict
 
-def get_rhymes_for(input_word):
+def get_rhymes_for(input_word: str) -> list:
     """
     Rhymetime: take in input word and return the rhymes.
     Break up the word into syllables and find other words
@@ -13,7 +13,7 @@ def get_rhymes_for(input_word):
     return find_rhyming_words_with_phonetic_representation(input_word, le_phonetical)
 
 
-def get_phonetic_representation(word):
+def get_phonetic_representation(word: str) -> list:
     """
     Get the phonetic representation of a word using the CMU Pronouncing Dictionary.
     """
@@ -31,9 +31,9 @@ def get_phonetic_representation(word):
     if word in pronouncing_dict:
         return pronouncing_dict[word][0] # pop [['c', 'a', 't']] into ['c', 'a', 't']
     else:
-        return None
+        return list()
 
-def find_rhyming_words_with_phonetic_representation(word, phonetic_representation):
+def find_rhyming_words_with_phonetic_representation(word: str, phonetic_representation: list) -> list:
     """
     Find words in the CMU Pronouncing Dictionary that rhyme with the given word
     based on the provided phonetic representation.
@@ -62,7 +62,7 @@ def find_rhyming_words_with_phonetic_representation(word, phonetic_representatio
 
 #TODO: save pronunciations as ['c', 'a', 't'] instead of [['c', 'a', 't']]
 # then get rid of the result[0] dance that does it elsewhere
-def download_dictionary():
+def download_dictionary() -> None:
     # Download the CMU Pronouncing Dictionary if you haven't already
     nltk.download('cmudict')
 
