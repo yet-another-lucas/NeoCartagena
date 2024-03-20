@@ -5,9 +5,12 @@ name = "pypi"
 
 [packages]
 nltk = "*"
+fastapi = "*"
 
 [dev-packages]
 mypy = "*"
+uvicorn = {extras = ["standard"], version = "*"}
+schemathesis = "*"
 
 [requires]
 python_version = "3.12"

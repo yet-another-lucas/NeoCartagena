@@ -2,7 +2,7 @@ import itertools
 
 FILENAME="words.txt"
 
-def find_anagram(input_word: str) -> list[str]:
+def find_anagrams(input_word: str) -> list[str]:
     """
     Return all anagrams for the input word.
 

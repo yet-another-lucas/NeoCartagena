@@ -8,20 +8,36 @@ carthago nova = cartagena = new new town
 neo cartagena = new new new town
 
 
-
 ## Setup
 Requires `pipenv`
 
 ```
 pip install --user pipenv;
 pipenv install;
+pipenv install --dev;
 ```
+Pipenv based to minimize system python interference.
 
 ## Usage
 ```
-pipenv run python ./main.py <mode> <args>
-pipenv run mypy ./*.py
+pipenv run mypy ./*.py                      # typechecker
+pipenv run python ./main.py <mode> <args>   # cli
+pipenv run uvicorn app:app --reload         # fastapi server
 ```
+Command line and rest interfaces.
+
+## API Documentation
+```
+http://127.0.0.1:8000/redoc
+http://127.0.0.1:8000/openapi.json
+```
+Swagger and redoc came for free with fastAPI.
+
+## Testing
+```
+pipenv run st run --checks all --experimental=openapi-3.1 --hypothesis-max-examples=10 http://127.0.0.1:8000/openapi.json
+```
+Based on schemathesis (the `run st` bit)
 
 ## Modes
 
@@ -64,10 +80,16 @@ TODO: use the phonetics stuff from rhyming to translate words beginning with dig
 
 ### quick run
 ```
-pipenv run python ./main.py solve-anagram bird
-pipenv run python ./main.py compute-distance bird taco
- pipenv run python ./main.py find-rhymes bird
-pipenv run python ./main.py pig-latin bird
-pipenv run python ./main.py cats-conundrum
+pipenv run python ./main.py solve-anagram bird;
+pipenv run python ./main.py compute-distance bird taco;
+pipenv run python ./main.py find-rhymes bird;
+pipenv run python ./main.py pig-latin bird;
+pipenv run python ./main.py cats-conundrum;
 
+curl -X POST http://127.0.0.1:8000/api/anagrams     -d '{"word": "bird"}' -H "Content-Type: application/json";
+curl -X POST http://127.0.0.1:8000/api/scrabble     -d '{"word": "bird"}' -H "Content-Type: application/json";
+curl -X POST http://127.0.0.1:8000/api/levenshtein  -d '{"word1": "bird", "word2": "taco"}' -H "Content-Type: application/json";
+curl -X POST "http://127.0.0.1:8000/api/levenshtein" -d '{"word1": "bird", "word2": "taco"}' -H "Content-Type: application/json";
+curl -X POST http://127.0.0.1:8000/api/rhymes       -d '{"word": "bird"}' -H "Content-Type: application/json";
+curl -X POST http://127.0.0.1:8000/api/piglatin     -d '{"word": "bird"}' -H "Content-Type: application/json";
 ```

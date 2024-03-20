@@ -6,30 +6,25 @@ import rhyme
 import cats_does_countdown
 
 
-def solve_anagram(word: str) -> None:
-    potentials = anagram.find_anagram(word)
-    print(f"found {len(potentials)} anagrams")
-    print(f"WORD\tSCORE")
-    for word in potentials:
-        score = anagram.scrabble_score(word)
-        print(f"{word}\t{score}")
+def solve_anagram(word: str) -> list[str]:
+    potentials = anagram.find_anagrams(word)
+    return potentials
 
-def compute_distance(word1: str, word2: str) -> None:
+def compute_distance(word1: str, word2: str) -> int:
     distance = levenshtein.distance(word1, word2)
-    print(f"The Levenshtein distance between '{word1}' and '{word2}' is {distance}.")
+    return distance
 
 def cats_conundrum() -> None:
     cats_does_countdown.conundrum()
 
-def find_rhymes(word: str) -> None:
-    nurhymes = rhyme.get_rhymes_for(word)
-    print(f"Rhymes for {word = } are: {nurhymes}")
+def find_rhymes(word: str) -> list[str]:
+    rhymes = rhyme.get_rhymes_for(word)
+    return rhymes
 
-def pig_latin(word: str) -> None:
-    print(f"try to translate {word}")
+def pig_latin(word: str) -> str:
     # translation = pig_latin.translate(word) # why does pig_latin.translate(word) gives AttributeError?
     translation = translate(word)
-    print(f"Pig latin for {word = } is: {translation}")
+    return translation
 
 def main() -> None:
     available_modes = ["solve-anagram", "compute-distance", "cats-conundrum", "find-rhymes", "pig-latin"]
@@ -44,24 +39,36 @@ def main() -> None:
         if len(arguments) != 1:
             print("Usage: pipenv run python main.py solve-anagram <word>")
             sys.exit(1)
-        solve_anagram(arguments[0])
+        solutions = solve_anagram(arguments[0])
+        print(f"found {len(solutions)} anagrams")
+        print(f"WORD\tSCORE")
+        for word in solutions:
+            score = anagram.scrabble_score(word)
+            print(f"{word}\t{score}")
     elif mode == "compute-distance":
         if len(arguments) != 2:
             print("Usage: pipenv run python main.py compute-distance <word1> <word2>")
             sys.exit(1)
-        compute_distance(arguments[0], arguments[1])
+        word1 = arguments[0]
+        word2 = arguments[1]
+        distance = compute_distance(word1, word2)
+        print(f"The Levenshtein distance between '{word1}' and '{word2}' is {distance}.")
     elif mode == "cats-conundrum":
         cats_conundrum()
     elif mode == "find-rhymes":
         if len(arguments) != 1:
             print("Usage: pipenv run python main.py find-rhymes <word>")
             sys.exit(1)
-        find_rhymes(arguments[0])
+        word = arguments[0]
+        rhymes = find_rhymes(word)
+        print(f"Rhymes for {word} are: {rhymes}")
     elif mode == "pig-latin":
         if len(arguments) != 1:
             print("Usage: pipenv run python main.py pig-latin <word>")
             sys.exit(1)
-        pig_latin(arguments[0])
+        word = arguments[0]
+        translation = pig_latin(word)
+        print(f"Pig latin for {word} is: {translation}")
     else:
         print("Invalid mode. Available modes: solve-anagram, compute-distance, cats-conundrum, find-rhymes, pig-latin")
         sys.exit(1)
